@@ -1,7 +1,13 @@
-<!doctype html>
-<head>
-    <title>Hello from Flask</title>
-</head>
-<body>
-    <h1>Hello, World!</h1>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Hello from Flask</title>
+    </head>
+    <body>
+        <ul>
+        {% for item in queue %}
+            <li>{{ item.id }} {{ item.command }}</li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>
