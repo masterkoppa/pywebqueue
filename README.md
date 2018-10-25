@@ -18,5 +18,5 @@ python scripts/init_db.py
 ### Run Web App
 
 ```bash
-FLASK_APP=pywebqueue/routes.py python -m flask run
+FLASK_ENV=development FLASK_APP=pywebqueue/routes.py python -m flask run
 ```
