@@ -32,50 +32,74 @@
         <ul class="queue-list list-group">
         {% for item in queue %}
             <li class="list-group-item">
-                {{ item.id }} {{ item.command }}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3">
+                            {{ item.id }}
+                        </div>
+                        <div class="col-6"> 
+                            {{ item.command }}
+                        </div>
 
-                {% if item.status == "DONE" %}
-                    <!-- Check Box for complete status -->
-                    <i class="fas fa-check-square"></i>
-            
-                    <!-- Progress bar completed -->
-                    <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                        {% if item.status == "DONE" %}
+                            <div class="col-3">
+                                <!-- Check Box for complete status -->
+                                <i class="fas fa-check-square"></i>
+                            </div>
+
+                        {% elif item.status == "IN PROGRESS" %}
+                            <div class="col-3">
+                                <!-- Spinning wheel for in progress -->
+                                <i class="fas fa-spinner"></i>
+                            </div>
+                        {% endif %}
                     </div>
 
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{ item.id }}">
-                        View Output
-                    </button>
-                
-                {% elif item.status == "IN PROGRESS" %}
-                    <!-- Spinning wheel for in progress -->
-                    <i class="fas fa-spinner"></i>
-                    
-                    <!-- Progress bars for different levels of progression -->
-                    {% if item.progress <= 33 %}
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                    {% if item.status == "DONE" %}
+                        <div class="row">
+                            <div class="col-9 m-auto">
+                                <!-- Progress bar completed -->
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-{{ item.id }}">
+                                    View Output
+                                </button>
+                            </div>
+                            
+                    {% elif item.status == "IN PROGRESS" %}
+                        <div class="row">
+                            <div class="col-9 m-auto">
+                                <!-- Progress bars for different levels of progression -->
+                                {% if item.progress <= 33 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                                    </div>                
+                                
+                                {% elif item.progress <= 66 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                                    </div>
+                                
+                                {% elif item.progress <= 99 %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                                    </div>
+                                
+                                {% endif %}
+                            </div>
+                            <div class="col-3">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-{{ item.id }}">
+                                    View Output
+                                </button>
+                            </div>
                         </div>
-                    
-                    {% elif item.progress <= 66 %}
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
-                        </div>
-                    
-                    {% elif item.progress <= 99 %}
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
-                        </div>
-                    
-                    {% endif %}
-
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{ item.id }}">
-                        View Output
-                    </button>
-
-                {% endif %} 
+                    {% endif %} 
+                </div>
             </li>
         {% endfor %}
         </ul>
