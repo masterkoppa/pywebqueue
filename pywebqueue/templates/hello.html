@@ -33,11 +33,35 @@
         {% for item in queue %}
             <li class="list-group-item">
                 {{ item.id }} {{ item.command }}
+
                 {% if item.status == "DONE" %}
                     <i class="fas fa-check-square"></i>
+
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                    </div>
+                
                 {% elif item.status == "IN PROGRESS" %}
                     <i class="fas fa-spinner"></i>
-                {% endif %}
+                    
+                    {% if item.progress <= 33 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                        </div>
+                    
+                    {% elif item.progress <= 66 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                        </div>
+                    
+                    {% elif item.progress <= 99 %}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                        </div>
+                    
+                    {% endif %}
+
+                {% endif %} 
             </li>
         {% endfor %}
         </ul>
