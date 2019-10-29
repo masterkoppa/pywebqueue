@@ -1,138 +1,102 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "layout.html" %}
+{% block content %}
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-        <!-- Font Awesome CSS -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-
-        <title>Hello, world!</title>
-
-        <style type="text/css">
-            @keyframes spin {
-                from { 
-                    transform: rotate(0deg); 
-                }
-                to { 
-                    transform: rotate(359deg); 
-                }
-            }
-
-            .queue-list .fa-spinner {
-                animation: spin 1.5s linear 0s infinite
-            }
-        </style>
-    </head>
-    <body>
-        <ul class="queue-list list-group">
-        {% for item in queue %}
-            <li class="list-group-item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-3">
-                            {{ item.id }}
-                        </div>
-                        <div class="col-6"> 
-                            {{ item.command }}
-                        </div>
-
-                        {% if item.status == "DONE" %}
-                            <div class="col-3">
-                                <!-- Check Box for complete status -->
-                                <i class="fas fa-check-square"></i>
-                            </div>
-
-                        {% elif item.status == "IN PROGRESS" %}
-                            <div class="col-3">
-                                <!-- Spinning wheel for in progress -->
-                                <i class="fas fa-spinner"></i>
-                            </div>
-                        {% endif %}
+    <ul class="queue-list list-group">
+    {% for item in queue %}
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        {{ item.id }}
+                    </div>
+                    <div class="col-6"> 
+                        {{ item.command }}
                     </div>
 
                     {% if item.status == "DONE" %}
-                        <div class="row">
-                            <div class="col-9 m-auto">
-                                <!-- Progress bar completed -->
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-{{ item.id }}">
-                                    View Output
-                                </button>
-                            </div>
-                            
+                        <div class="col-3">
+                            <!-- Check Box for complete status -->
+                            <i class="fas fa-check-square"></i>
+                        </div>
+
                     {% elif item.status == "IN PROGRESS" %}
-                        <div class="row">
-                            <div class="col-9 m-auto">
-                                <!-- Progress bars for different levels of progression -->
-                                {% if item.progress <= 33 %}
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
-                                    </div>                
-                                
-                                {% elif item.progress <= 66 %}
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
-                                    </div>
-                                
-                                {% elif item.progress <= 99 %}
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
-                                    </div>
-                                
-                                {% endif %}
-                            </div>
-                            <div class="col-3">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-{{ item.id }}">
-                                    View Output
-                                </button>
+                        <div class="col-3">
+                            <!-- Spinning wheel for in progress -->
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if item.status == "DONE" %}
+                    <div class="row">
+                        <div class="col-9 m-auto">
+                            <!-- Progress bar completed -->
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
                             </div>
                         </div>
-                    {% endif %} 
-                </div>
-            </li>
-        {% endfor %}
-        </ul>
+                        <div class="col-3">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-{{ item.id }}">
+                                View Output
+                            </button>
+                        </div>
+                        
+                {% elif item.status == "IN PROGRESS" %}
+                    <div class="row">
+                        <div class="col-9 m-auto">
+                            <!-- Progress bars for different levels of progression -->
+                            {% if item.progress <= 33 %}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                                </div>                
+                            
+                            {% elif item.progress <= 66 %}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                                </div>
+                            
+                            {% elif item.progress <= 99 %}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: {{ item.progress }}%;" aria-valuenow="{{ item.progress }}" aria-valuemin="0" aria-valuemax="100">{{ item.progress }}%</div>
+                                </div>
+                            
+                            {% endif %}
+                        </div>
+                        <div class="col-3">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-{{ item.id }}">
+                                View Output
+                            </button>
+                        </div>
+                    </div>
+                {% endif %} 
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
 
-        {% for item in queue %}
-            <!-- Modal -->
-            <div class="modal fade" id="modal-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <pre>{{ item.output }}</pre>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
+    {% for item in queue %}
+        <!-- Modal -->
+        <div class="modal fade" id="modal-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <pre>{{ item.output }}</pre>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
             </div>
-        {% endfor %}
+          </div>
+        </div>
+    {% endfor %}
 
-
-
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    </body>
-</html>
+{% endblock %}

@@ -20,7 +20,7 @@ queue_example = [
         "id": 2, 
         "command": "rm somefile.txt", 
         "status": "IN PROGRESS", 
-        "progress": 90,
+        "progress": 99,
         "output": "boo"
     }
 ]
