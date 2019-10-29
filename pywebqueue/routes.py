@@ -20,11 +20,11 @@ queue_example = [
         "id": 2, 
         "command": "rm somefile.txt", 
         "status": "IN PROGRESS", 
-        "progress": 99,
+        "progress": 90,
         "output": "boo"
     }
 ]
 
 @app.route("/")
-def hello():
-    return render_template('hello.html', queue=queue_example)
+def index():
+    return render_template('index.html', queue=queue_example)
