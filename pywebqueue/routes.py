@@ -28,3 +28,7 @@ queue_example = [
 @app.route("/")
 def index():
     return render_template('index.html', queue=queue_example)
+
+@app.route('/queue/<int:queue_id>')
+def show_queue(queue_id):
+    return render_template('queue.html', queue_id=queue_id)
